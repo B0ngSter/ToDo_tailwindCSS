@@ -47,7 +47,7 @@
           <img @click="deleteItem(task.name)" class="mr-4 smlaptop:mr-0" src="@/static/delete.png" alt="">
         </div>
         <div v-if="completedTasks.length === 0" class="flex justify-center mt-8">
-          <p class="font-sans text-base">No task has been marked as completed</p>
+          <p class="font-sans text-base text-gray-400">No task has been marked as completed</p>
         </div>
         <div v-if="completedTasks.length>0" class="flex justify-end mt-8">
           <button @click="deleteAllTasks()" class="mr-4 smlaptop:mr-0 flex rounded focus:outline-none flex-row px-8 py-2 btnred">

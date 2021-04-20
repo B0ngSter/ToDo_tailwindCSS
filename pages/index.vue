@@ -112,8 +112,10 @@ export default {
 <style>
 .bttnn {
   background: #2F80ED;
+  color: white;
 }
 .btnred {
   background: #EB5757;
+  color: white;
 }
 </style>

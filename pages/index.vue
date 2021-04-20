@@ -98,6 +98,9 @@ export default {
       this.tasks.splice(id, 1)
     },
     AddNewTask () {
+      if (this.NewTask === '') {
+        return
+      }
       const newT = {
         name: this.NewTask,
         status: false

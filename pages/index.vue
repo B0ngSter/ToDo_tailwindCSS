@@ -29,7 +29,7 @@
           <strike class="font-sans pl-4 text-base text-hardBlue" v-if="task.status">{{ task.name }}</strike>
           <p class="font-sans pl-4 text-base" v-else>{{ task.name }}</p>
         </div>
-        <div v-if="pendingTasks.length === 0" class="flex justify-center mt-8">
+        <div v-if="tasks.length === 0" class="flex justify-center mt-8">
           <p class="font-sans text-base text-gray-400">Please Add Some Tasks</p>
         </div>
       </div>

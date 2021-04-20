@@ -18,23 +18,31 @@
     </div>
     <div class="w-full flex justify-center">
       <div v-if="ActiveTab === 1 || ActiveTab === 2" class="smlaptop:w-4/12 flex flex-row">
-        <input placeholder="add details" v-model="NewTask" type="text" class="w-10/12 focus:outline-none flex-grow h-12 mt-8 border-2 rounded-xl pl-4 border-gray-200">
-        <button @click="AddNewTask()" class="ml-3 bttnn mt-8 rounded-xl px-8 py-2">Add</button>
+        <input placeholder="add details" id="inputBox" v-model="NewTask" type="text" class="w-10/12 focus:outline-none flex-grow h-12 mt-8 border-2 rounded-xl pl-4 border-gray-200">
+        <button @click="AddNewTask()" class="ml-3 bttnn mt-8 rounded-xl px-8 py-2 focus:outline-none focus:bg-hoverBlue">Add</button>
       </div>
     </div>
     <div class="flex justify-center mt-4">
       <div class="w-full pl-12 smlaptop:pl-0 smlaptop:w-1/3" v-if="ActiveTab === 1">
-        <div v-for="(task, i) in tasks" :key="i" @click="task.status = !task.status" class="smlaptop:w-8/12 mt-4 flex justify-start items-center cursor-pointer">
+        <div v-for="(task, i) in tasks" :key="i" @click="switchbtn(i, 'regular')" class="smlaptop:w-8/12 mt-4 flex justify-start items-center cursor-pointer">
           <input type="checkbox" v-model="task.status" class="checked:bg-gray-200 smlaptop:w-6 h-6 cursor-pointer checked:border-red">
           <strike class="font-sans pl-4 text-base text-hardBlue" v-if="task.status">{{ task.name }}</strike>
           <p class="font-sans pl-4 text-base" v-else>{{ task.name }}</p>
         </div>
+        <div v-if="pendingTasks.length === 0" class="flex justify-center mt-8">
+          <p class="font-sans text-base text-gray-400">Please Add Some Tasks</p>
+        </div>
       </div>
       <div class="w-full pl-12 smlaptop:pl-0 smlaptop:w-1/3" v-if="ActiveTab === 2">
-        <div v-for="(task, i) in pendingTasks" :key="i" class="smlaptop:w-8/12 mt-4 flex justify-start items-center cursor-pointer">
-          <input disabled type="checkbox" v-model="task.status" class="checked:bg-gray-200 smlaptop:w-6 h-6 cursor-pointer checked:border-red">
-          <strike class="font-sans pl-4 text-base text-hardBlue" v-if="task.status">{{ task.name }}</strike>
-          <p class="font-sans pl-4 text-base" v-else>{{ task.name }}</p>
+        <div v-for="(task, i) in pendingTasks" :key="i">
+          <div v-if="task" @click="switchbtn(i, 'active')" class="smlaptop:w-8/12 mt-4 flex justify-start items-center cursor-pointer" >
+            <input type="checkbox" v-model="task.status" class="checked:bg-gray-200 smlaptop:w-6 h-6 cursor-pointer checked:border-red">
+            <strike class="font-sans pl-4 text-base text-hardBlue" v-if="task.status">{{ task.name }}</strike>
+            <p class="font-sans pl-4 text-base" v-else>{{ task.name }}</p>
+          </div>
+        </div>
+        <div v-if="pendingTasks.length === 0" class="flex justify-center mt-8">
+          <p class="font-sans text-base text-gray-400">No active tasks</p>
         </div>
       </div>
       <div class="w-full pl-12 smlaptop:pl-0 smlaptop:w-1/3" v-if="ActiveTab === 3">
@@ -93,6 +101,14 @@ export default {
         }
       })
     },
+    switchbtn (i, arg) {
+      if (arg === 'active') {
+        this.pendingTasks[i].status = !this.pendingTasks[i].status
+      } else {
+        this.tasks[i].status = !this.tasks[i].status
+      }
+      debugger
+    },
     deleteItem (taskName) { // delete perticular task
       const id = this.tasks.findIndex(item=> item.name === taskName)
       this.tasks.splice(id, 1)
@@ -107,6 +123,7 @@ export default {
       }
       this.tasks.push(newT)
       this.NewTask = ''
+      document.getElementById('inputBox').focus()
     }
   }
 }
@@ -120,5 +137,8 @@ export default {
 .btnred {
   background: #EB5757;
   color: white;
+}
+input[type="checkbox"] {
+    pointer-events: none;
 }
 </style>

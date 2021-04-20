@@ -25,7 +25,7 @@ module.exports = {
             redish: '#E52B20',
             yellowish: '#FFBF2F',
             DarkBlue: '#211B4E',
-            hoverBlue: '#000427',
+            hoverBlue: '#5197f1',
             activeBlue: '#1a2374',
             blueish: '#575BDE',
             hardBlue: '#110F24',
